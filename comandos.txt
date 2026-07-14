@@ -12,4 +12,22 @@ laravel new <proyecto>
 Generar llave de encriptación
 php artisan key:generate
 
+Iniciar migración
 php artisan migrate
+
+Crear controlador
+php artisan make:controller ChirpController --resource
+
+Crear una nueva migración
+php artisan make:migration <table_name>
+
+php artisan make:model <model_name> -mrc
+m = model
+r = resource controller
+c = 
+
+$user = \App\Models\User::create(['name' => 'Jane', 'email' => 'jane2@doe.com', 'password' => bcrypt('mypassword')]);
+ $chirp = $user->chirps()->create(['message' => 'associated chirp user']); 
+
+ php artisan cache:clear
+ php artisan make:seeder ChirpSeeder

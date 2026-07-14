@@ -21,6 +21,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+       /*  \DB::table('users')->insert([
+            'name' => 'Jhon Doe',
+            'email' => 'jhon@doe.com',
+            'email_verified_at' => now(),
+            'password' => '$5jH$#1#4',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]); */
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -34,7 +43,14 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
-        });
+        });        
+
+        /* \DB::table('chirps')->insert([
+            'user_id' => 1,
+            'message' => 'this is my first chirper',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]); */
     }
 
     /**
