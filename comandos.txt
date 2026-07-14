@@ -1,0 +1,15 @@
+Instalar dependencias composer
+composer install
+
+Ejecutar proyecto con vite
+composer run dev
+
+Iniciar proyecto
+php artisan serve
+
+laravel new <proyecto>
+
+Generar llave de encriptación
+php artisan key:generate
+
+php artisan migrate
