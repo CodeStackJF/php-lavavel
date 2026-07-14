@@ -7,6 +7,7 @@
         <h3>Latest Chirps</h3>
 
         <form class="card-body" id="frm-save-chirp" method="post" action="/chirp">
+            @csrf
             <div class="row">
                 <div class="col-md-3">
                     <label>Usuario</label>
@@ -25,6 +26,7 @@
                     <textarea name="message" class="form-control" maxlength="200" required></textarea>
                 </div>
             </div>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <div class="row">
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary">Guardar</button>

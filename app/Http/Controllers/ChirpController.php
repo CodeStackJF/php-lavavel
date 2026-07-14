@@ -50,4 +50,11 @@ class ChirpController extends Controller
         $chirp = Chirp::where('id', $id)->firstOrFail();
         return view('/chirps/index', ['chirp' => $chirp]);
     }
+
+    public function delete(int $id)
+    {
+        $chirp = Chirp::where('id', $id)->firstOrFail();
+        $chirp->delete();
+        return redirect('/')->with('success', 'Chirp deleted');
+    }
 }

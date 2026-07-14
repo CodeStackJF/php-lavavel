@@ -15,6 +15,7 @@ Route::get('/home', function(){
 Route::get('/', [ChirpController::class, 'index']);
 
 Route::get('/users/{name}', [UserController::class, 'index']);
-Route::get('/chirp/{id}', [ChirpController::class, 'get']);
 
+Route::get('/chirp/{id}', [ChirpController::class, 'get']);
 Route::post('/chirp', [ChirpController::class, 'store']);
+Route::get('/chirp/{id}/delete', [ChirpController::class, 'delete']);
