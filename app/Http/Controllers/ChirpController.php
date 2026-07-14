@@ -62,4 +62,10 @@ class ChirpController extends Controller
         $chirp->delete();
         return redirect('/')->with('success', 'Chirp deleted');
     }
+
+    public function edit(int $id)
+    {
+        $chirp = Chirp::where('id', $id)->firstOrFail();
+        return view('/chirps/edit', ['chirp' => $chirp]);
+    }
 }

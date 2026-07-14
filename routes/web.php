@@ -19,3 +19,4 @@ Route::get('/users/{name}', [UserController::class, 'index']);
 Route::get('/chirp/{id}', [ChirpController::class, 'get']);
 Route::post('/chirp', [ChirpController::class, 'store']);
 Route::get('/chirp/{id}/delete', [ChirpController::class, 'delete']);
+Route::get('/chirp/{id}/edit', [ChirpController::class, 'edit']);
