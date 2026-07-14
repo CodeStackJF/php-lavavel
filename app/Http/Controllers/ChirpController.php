@@ -31,8 +31,13 @@ class ChirpController extends Controller
     {
         //die(json_encode($request));
         $validated = $request->validate([
-            'message' => 'required|string|max:200',
-            'user_id' => 'required|int'
+            'message' => 'required|string|max:200|min:5',
+            'user_id' => 'nullable|required|int|gt:0'
+        ],
+        [
+            'message.required' => 'Write a message please.',
+            'message.max' => 'Only 200 is allowed.',
+            'message.min' => 'Write at least 5 characters.',
         ]);
         
         $user_id = $validated['user_id'];

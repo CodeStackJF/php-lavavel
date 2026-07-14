@@ -12,18 +12,27 @@
                 <div class="col-md-3">
                     <label>Usuario</label>
                     <select name="user_id">
+                        <option value="">Seleccione</option>
                         @foreach($users as $user)
-                        {
-                            <option value="{{ $user->id }}">{{$user->name}} | {{$user->email}}</option>
-                        }
+                            <option {{ old('user_id') == $user->id ? 'selected':'' }} value="{{ $user->id }}">{{$user->name}} | {{$user->email}}</option>
                         @endforeach
                     </select>
+                    @error('user_id')
+                        <div class="label">
+                            <span class="">{{isset($user_id) ? $user_id:''}}</span>
+                        </div>
+                    @enderror
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <label>Content</label>
-                    <textarea name="message" class="form-control" maxlength="200" required></textarea>
+                    <textarea name="message" class="form-control">{{old('message')}}</textarea>
+                    @error('message')
+                        <div class="label">
+                            <span class="">{{$message}}</span>
+                        </div>
+                    @enderror
                 </div>
             </div>
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -33,6 +42,11 @@
                 </div>
             </div>
         </form>
+       {{--  @if($errors->any())
+            <p>{{dd($errors->all())}}</p>
+        @endif --}}
+
+        
         <p>
            @foreach($chirps as $chirp)
                 <x-chirp :chirp="$chirp" />

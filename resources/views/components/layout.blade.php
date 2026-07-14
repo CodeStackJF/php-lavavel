@@ -46,6 +46,20 @@
     </div>
     </nav>
 
+    @if(session('success'))      
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="..." class="rounded me-2" alt="...">
+          <strong class="me-auto">CodeStack</strong>
+          <small></small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          <span>{{session('success')}}</span>
+        </div>
+      </div>
+    @endif
+
     <main class="flex-1 containre mx-auto px-4 py-8">
       <div class="container-fluid bg-white">
         {{ $slot }}
