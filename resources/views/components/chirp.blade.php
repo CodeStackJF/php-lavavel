@@ -3,9 +3,13 @@
     <div class="card-body">
         <div class="card-title">{{ $chirp->user->name }}</div>
         <p>{{ $chirp->message }}</p>
-        <a href="#" class="btn btn-primary">{{ $chirp->created_at }} | {{ $chirp->created_at->diffForHumans() }}</a>
-        <a class="btn btn-primary" href="/chirp/{{ $chirp->id }}">Open</a>
-        <a class="btn btn-danger" href="/chirp/{{ $chirp->id }}/delete">Delete</a>
-        <a class="btn btn-danger" href="/chirp/{{ $chirp->id }}/edit">Edit</a>
+        <a href="#">{{ $chirp->created_at }} | {{ $chirp->created_at->diffForHumans() }}</a> 
+            @if($chirp->updated_at->gt($chirp->created_at->addSeconds(5)))
+                <small>edited</small>
+            @endif
+        | 
+        <a href="/chirps/{{ $chirp->id }}/view">Open</a> | 
+        <a href="/chirps/{{ $chirp->id }}/delete">Delete</a> | 
+        <a href="/chirps/{{ $chirp->id }}/edit">Edit</a> | 
     </div>
 </div>

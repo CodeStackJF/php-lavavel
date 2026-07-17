@@ -16,7 +16,13 @@ Route::get('/', [ChirpController::class, 'index']);
 
 Route::get('/users/{name}', [UserController::class, 'index']);
 
-Route::get('/chirp/{id}', [ChirpController::class, 'get']);
-Route::post('/chirp', [ChirpController::class, 'store']);
-Route::get('/chirp/{id}/delete', [ChirpController::class, 'delete']);
-Route::get('/chirp/{id}/edit', [ChirpController::class, 'edit']);
+Route::get('/chirps/{chirp}/view', [ChirpController::class, 'view']);
+Route::get('/chirps', [ChirpController::class, 'get']);
+Route::post('/chirps', [ChirpController::class, 'store']);
+Route::get('/chirps/{chirp}/delete', [ChirpController::class, 'delete']);
+Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit']);
+Route::post('/chirps/{chirp}/update', [ChirpController::class, 'update']);
+
+Route::view('/register', 'auth.register');
+
+//Route::resource('/chirps', ChirpController::class)->only(['store', 'edit', 'update', 'delete']);

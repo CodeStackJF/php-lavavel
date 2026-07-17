@@ -8,28 +8,17 @@ use Illuminate\Http\Request;
 
 class ChirpController extends Controller
 {
-    public function index()
+    public function get()
     {
-        $chirps = [
-            [
-                'author' => 'Jane Doe',
-                'message' => 'Hello friends',
-                'time' =>  '5 minutes ago'
-            ],
-            [
-                'author' => 'Jhone Doe',
-                'message' => 'Hello pals',
-                'time' =>  '7 minutes ago'
-            ]
-        ];
         $users = User::get();
         $chirps = Chirp::with('user')->latest()->take(50)->get();
-        return view('home', ['chirps' => $chirps, 'users' => $users]);
+        $chirp = new Chirp();
+        $chirp->id = 0;
+        return view('/chirps/index', ['chirps' => $chirps, 'users' => $users, 'chirp' => $chirp]);
     }
 
     public function store(Request $request)
     {
-        //die(json_encode($request));
         $validated = $request->validate([
             'message' => 'required|string|max:200|min:5',
             'user_id' => 'nullable|required|int|gt:0'
@@ -47,25 +36,41 @@ class ChirpController extends Controller
             'created_at' => now()
         ]);
 
-        return redirect('/')->with('success', 'Chirp created');
+        return redirect('/chirps')->with('success', 'Chirp created');
     }
     
-    public function get(int $id)
+    public function view(Chirp $chirp)
     {
-        $chirp = Chirp::where('id', $id)->firstOrFail();
-        return view('/chirps/index', ['chirp' => $chirp]);
+        return view('/chirps/view', ['chirp' => $chirp]);
     }
 
-    public function delete(int $id)
+    public function delete(Chirp $chirp)
     {
-        $chirp = Chirp::where('id', $id)->firstOrFail();
+        $this->authorize('delete', $chirp);
         $chirp->delete();
-        return redirect('/')->with('success', 'Chirp deleted');
+        return redirect('/chirps')->with('success', 'Chirp deleted');
     }
 
-    public function edit(int $id)
+    public function edit(Chirp $chirp)
     {
-        $chirp = Chirp::where('id', $id)->firstOrFail();
-        return view('/chirps/edit', ['chirp' => $chirp]);
+        $users = User::get();
+        return view('/chirps/edit', ['chirp' => $chirp, 'users' => $users]);
+    }
+
+    public function update(Request $request, Chirp $chirp)
+    {
+        
+        $validated = $request->validate([
+            'message' => 'required|string|max:200|min:5',
+            'user_id' => 'nullable|required|int|gt:0'
+        ],
+        [
+            'message.required' => 'Write a message please.',
+            'message.max' => 'Only 200 is allowed.',
+            'message.min' => 'Write at least 5 characters.',
+        ]);
+
+        $chirp = $chirp->update($validated);
+        return redirect('/chirps')->with('success', 'Chirp updated');
     }
 }

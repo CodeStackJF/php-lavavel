@@ -31,3 +31,5 @@ $user = \App\Models\User::create(['name' => 'Jane', 'email' => 'jane2@doe.com', 
 
  php artisan cache:clear
  php artisan make:seeder ChirpSeeder
+
+ php artisan make:policy
