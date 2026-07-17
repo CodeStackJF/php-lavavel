@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class Register extends Controller
+class RegisterController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -28,6 +28,6 @@ class Register extends Controller
         ]);
 
         Auth::login($user);
-        return redirect('/')->with('success', 'welcome to chirper');
+        return redirect('/chirps')->with('success', 'welcome to chirper');
     }
 }
