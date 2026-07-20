@@ -14,6 +14,8 @@ class LogoutController extends Controller
     {
         $user = $request->user();
         Auth::logout($user);
+        $request->session->invalidate();
+        $request->session->regenerateToken();
         return redirect('/chirps')->with('success', 'Logout');
     }
 }

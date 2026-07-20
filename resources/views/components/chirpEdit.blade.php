@@ -9,26 +9,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <label>Usuario</label>
-            <select name="user_id">
-                <option value="">Seleccione</option>
-                @foreach($users as $user)
-                    @if($chirp->id == 0)
-                        <option option {{ old('user_id') == $user->id ? 'selected':'' }} value="{{ $user->id }}">{{$user->name}} | {{$user->email}}</option>
-                    @else
-                        <option option {{ $chirp->user_id == $user->id ? 'selected':'' }} value="{{ $user->id }}">{{$user->name}} | {{$user->email}}</option>
-                    @endif
-                @endforeach
-            </select>
-            @error('user_id')
-                <div class="label">
-                    <span class="">{{isset($user_id) ? $user_id:''}}</span>
-                </div>
-            @enderror
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-12">
             <label>Content</label>
             <textarea name="message" class="form-control">{{$chirp->message}}</textarea>

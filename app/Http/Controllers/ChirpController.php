@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Chirp;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ChirpController extends Controller
 {
+    use AuthorizesRequests;
+
     public function get()
     {
         $users = User::get();
@@ -20,8 +24,7 @@ class ChirpController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'message' => 'required|string|max:200|min:5',
-            'user_id' => 'nullable|required|int|gt:0'
+            'message' => 'required|string|max:200|min:5'
         ],
         [
             'message.required' => 'Write a message please.',
@@ -29,7 +32,7 @@ class ChirpController extends Controller
             'message.min' => 'Write at least 5 characters.',
         ]);
         
-        $user_id = $validated['user_id'];
+        $user_id = Auth::user()->id;
         $user = User::where('id', $user_id)->firstOrFail();
         $user->chirps()->create([
             'message' => $validated['message'],
@@ -53,16 +56,16 @@ class ChirpController extends Controller
 
     public function edit(Chirp $chirp)
     {
+        $this->authorize('update', $chirp);
         $users = User::get();
         return view('/chirps/edit', ['chirp' => $chirp, 'users' => $users]);
     }
 
     public function update(Request $request, Chirp $chirp)
     {
-        
+        $this->authorize('update', $chirp);
         $validated = $request->validate([
-            'message' => 'required|string|max:200|min:5',
-            'user_id' => 'nullable|required|int|gt:0'
+            'message' => 'required|string|max:200|min:5'
         ],
         [
             'message.required' => 'Write a message please.',

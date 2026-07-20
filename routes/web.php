@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\Auth\Register;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
 /* Route::get('/', function () {
     return view('welcome');
@@ -24,8 +25,10 @@ Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit']);
 Route::post('/chirps/{chirp}/update', [ChirpController::class, 'update']);
 
 Route::view('/register', 'auth.register');
-Route::post('/register', Register::class)->middleware('guest');
+Route::post('/register', RegisterController::class)->middleware('guest');
 
 Route::get('/logout', LogoutController::class)->middleware('auth');
+Route::view('/login', 'auth.login');
+Route::post('/login', LoginController::class)->middleware('guest');
 
 //Route::resource('/chirps', ChirpController::class)->only(['store', 'edit', 'update', 'delete']);

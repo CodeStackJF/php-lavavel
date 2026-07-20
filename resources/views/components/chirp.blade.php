@@ -9,7 +9,13 @@
             @endif
         | 
         <a href="/chirps/{{ $chirp->id }}/view">Open</a> | 
-        <a href="/chirps/{{ $chirp->id }}/delete">Delete</a> | 
-        <a href="/chirps/{{ $chirp->id }}/edit">Edit</a> | 
+        {{-- @if(auth()->check() && auth()->id() === $chirp->user_id) --}}
+        @can('delete', $chirp)
+            <a href="/chirps/{{ $chirp->id }}/delete">Delete</a> | 
+        @endcan
+        @can('update', $chirp)
+            <a href="/chirps/{{ $chirp->id }}/edit">Edit</a> | 
+        @endcan
+        {{-- @endif --}}
     </div>
 </div>
